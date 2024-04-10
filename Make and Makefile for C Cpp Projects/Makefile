@@ -32,15 +32,21 @@ OBJECT_LIST = main.o lib.o
 build: $(OBJECT_LIST)
 	$(COMPILER_CALL) $(OBJECT_LIST) -o $(EXECUTE_NAME)
 
-main.o:
-	$(COMPILER_CALL) src/main.cpp -c 
-
-lib.o:
-	$(COMPILER_CALL) src/lib.cpp -c 
-
 execute: 
 	.\main.exe
 	
 clean:
 	rm -f *.exe
 	rm -f *.o
+
+
+##PATTERNS
+# $@ : the file name of the target
+# $< : the name of the first dependency
+# $^ : the names of all prerequisites
+
+### Makefile format 
+# target : dependency
+# 	command 
+%.o: src/%.cpp
+	$(COMPILER_CALL) -c $< -o $@
