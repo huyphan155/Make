@@ -2,6 +2,8 @@
 # Note : only has 1 variable type is STRING
 
 DEBUG_MODE = 1
+WARNINGS_AS_ERRORS = 0
+
 INCLUDE_DIR = include
 SOURCE_DIR = src
 BUILD_DIR = build
@@ -17,6 +19,10 @@ LDFLAGS =
 
 ## New Variable
 CXX_WARNING =  -Wall -Wextra -Wpedantic 
+ifeq ($(WARNINGS_AS_ERRORS),1)
+## treat warning as error
+CXX_WARNING += -Werror
+endif
 CXXFLAGS = $(CXX_WARNING)
 ## flag to tell the compiler where to include header file
 CPPFLAGS = -I $(INCLUDE_DIR)
@@ -41,10 +47,12 @@ COMPILER_CALL = $(CXX) $(CXXFLAGS) $(CPPFLAGS)
 SOURCE_LIST = $(wildcard $(SOURCE_DIR)/*.cpp)
 OBJECT_LIST_WILDCARD = $(patsubst $(SOURCE_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SOURCE_LIST))
 
-folder:
-	mkdir $(BUILD_DIR)
+all: folder build execute 
 
-build: folder $(OBJECT_LIST_WILDCARD)
+folder:
+	mkdir -p $(BUILD_DIR)
+
+build: $(OBJECT_LIST_WILDCARD)
 	$(COMPILER_CALL) $(OBJECT_LIST_WILDCARD) -o $(BUILD_DIR)/$(EXECUTE_NAME)
 
 execute: 
@@ -66,3 +74,7 @@ clean:
 # 	command 
 $(BUILD_DIR)/%.o: $(SOURCE_DIR)/%.cpp
 	$(COMPILER_CALL) -c $< -o $@
+
+
+##PHONY
+.PHONY: folder build execute clean
