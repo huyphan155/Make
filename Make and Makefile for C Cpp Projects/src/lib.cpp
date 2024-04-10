@@ -1,4 +1,4 @@
-#include "lib.h"
+#include "../include/lib.h"
 
 void printf_make()
 {
