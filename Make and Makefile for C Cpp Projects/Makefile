@@ -25,14 +25,18 @@ else
 CXXFLAGS += -O3
 endif 
 
-build: main.o lib.o
-	g++ main.o lib.o -o main
+COMPILER_CALL = $(CXX) $(CXXFLAGS)
+
+OBJECT_LIST = main.o lib.o
+
+build: $(OBJECT_LIST)
+	$(COMPILER_CALL) $(OBJECT_LIST) -o $(EXECUTE_NAME)
 
 main.o:
-	g++ src/main.cpp -c main.o
+	$(COMPILER_CALL) src/main.cpp -c 
 
 lib.o:
-	g++ src/lib.cpp -c lib.o
+	$(COMPILER_CALL) src/lib.cpp -c 
 
 execute: 
 	.\main.exe
