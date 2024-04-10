@@ -27,10 +27,16 @@ endif
 
 COMPILER_CALL = $(CXX) $(CXXFLAGS)
 
-OBJECT_LIST = main.o lib.o
+## OBJECT_LIST = main.o lib.o 
+## OBJECT_LIST can aslo obtain this below 2 command : wildcard and patsubst
+## wildcard : file all cpp file in folder src/
+## patsubst : convert all .cpp file to .o in $(SOURCE_LIST)
 
-build: $(OBJECT_LIST)
-	$(COMPILER_CALL) $(OBJECT_LIST) -o $(EXECUTE_NAME)
+SOURCE_LIST = $(wildcard src/*.cpp)
+OBJECT_LIST_WILDCARD = $(patsubst %.cpp, %.o, $(SOURCE_LIST))
+
+build: $(OBJECT_LIST_WILDCARD)
+	$(COMPILER_CALL) $(OBJECT_LIST_WILDCARD) -o $(EXECUTE_NAME)
 
 execute: 
 	.\main.exe
