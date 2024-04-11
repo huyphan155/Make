@@ -27,7 +27,7 @@ Targets can be called by the ```make``` command.
 $(BUILD_DIR)/%.o: $(SOURCE_DIR)/%.cpp
 	$(COMPILER_CALL) -c $< -o $@
 ```
-With all .o file in $(BUILD_DIR) -> find all corresponding .cpp file in $(SOURCE_DIR)
+With all .o file in (BUILD_DIR) folder . Find all corresponding .cpp file in (SOURCE_DIR)
 
 ```make
 main.o: src/main.cpp
@@ -52,7 +52,7 @@ Find all cpp file in $(SOURCE_DIR) folder.
 OBJECT_LIST_WILDCARD = $(patsubst $(SOURCE_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SOURCE_LIST))
 ```
 
-Replace all .cpp file in $(SOURCE_DIR) in $(SOURCE_LIST) to object file in $(BUILD_DIR)
+Replace all .cpp file in (SOURCE_DIR) in (SOURCE_LIST) to object file in (BUILD_DIR)
 
 ## Addtional Topics
 
@@ -60,7 +60,7 @@ Replace all .cpp file in $(SOURCE_DIR) in $(SOURCE_LIST) to object file in $(BUI
 
 Flag to tell the compiler where to include header file.
 
-### see default value of var in make file
+### See default value of var in make file
 ```make
 make -p
 ```
